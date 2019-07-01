@@ -1,5 +1,5 @@
-# choco-packages
-Chocolatey Package Management
+# chocolatey-packages
+Chocolatey Package Updater
 
 This PowerShell script executes against our internal repository to create a list of packages to check for updates and internalize.
 
