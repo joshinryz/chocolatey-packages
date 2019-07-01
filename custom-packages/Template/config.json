@@ -1,0 +1,31 @@
+{
+    "WebRepoSource":  {
+                          "Enabled":  false,
+                          "Address":  "https://chocolatey.org/api/v2/"
+                      },
+    "WebsiteSource":  {
+                          "Enabled":  false,
+                          "Script":  "https://place_where_au_can_scrape"
+                      },
+    "NetworkSource":  {
+                          "Enabled":  true,
+                          "NetworkPath":  "\\\\network\\share",
+                          "FilePattern":  "binary*.exe"
+                      },
+    "ReplaceFiles":  {
+                         "Enabled":  true,
+                         "CustomPath":  null
+                     },
+    "MergeFiles":    {
+                         "Enabled":  true,
+                         "CustomPath":  null
+                     },
+    "CustomScript":    {
+                      "Enabled":  false,
+                      "ScriptPath":  ".\\customScript.ps1"
+                    },                     
+    "RecompileNupkg":  {
+                           "Enabled":  true
+                       }
+                       
+}
