@@ -4,8 +4,9 @@ Chocolatey Package Updater
 This PowerShell script executes against our internal repository to create a list of packages to check for updates and internalize.
 
 # Features
-* Automatically internalizes packages available on internal repo.
-* Send summary email to group when new packages are available.
+* Gather a list of already internalized packages from our internal repos.
+* Upgrade those packages if a newer version is avaialble from a supported source
+* Send summary email when the job completes and new packages are found
 * Custom scripts can be executed to handle non-standard packages
 
 Templates are provided for :
