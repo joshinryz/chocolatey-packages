@@ -5,7 +5,7 @@
                       },
     "WebsiteSource":  {
                           "Enabled":  false,
-                          "Script":  "https://place_where_au_can_scrape"
+                          "Script":  ".\\websiteScrape.ps1"
                       },
     "NetworkSource":  {
                           "Enabled":  true,

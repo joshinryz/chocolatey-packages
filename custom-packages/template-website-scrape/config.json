@@ -4,13 +4,13 @@
                           "Address":  "https://chocolatey.org/api/v2/"
                       },
     "WebsiteSource":  {
-                          "Enabled":  false,
-                          "ScriptPath":  ".\\webScrape.ps1"
+                          "Enabled":  true,
+                          "ScriptPath":  ".\\websiteScrape.ps1"
                       },
     "NetworkSource":  {
-                          "Enabled":  true,
-                          "NetworkPath":  "\\\\network\\share\\",
-                          "FilePattern":  "chocolatey*.xml"
+                          "Enabled":  false,
+                          "NetworkPath":  "\\\\network\\share",
+                          "FilePattern":  "binary*.exe"
                       },
     "ReplaceFiles":  {
                          "Enabled":  false,
@@ -21,11 +21,11 @@
                          "CustomPath":  null
                      },
     "CustomScript":    {
-                         "Enabled":  false,
-                         "ScriptPath":  ".\\customScript.ps1"
+                      "Enabled":  false,
+                      "ScriptPath":  ".\\customScript.ps1"
                     },                     
     "RecompileNupkg":  {
-                         "Enabled":  false
+                           "Enabled":  true
                        }
                        
 }

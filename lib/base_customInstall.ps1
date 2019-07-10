@@ -5,7 +5,9 @@
 
 ### Global Settings 
 ### TODO: Lets get rid of this stuff - recursively search our path - better approach
-$chocoBase = "c:\git\choco-packages"
+##  TODO: Move these into an include file (so it can be included elswhere)
+
+$chocoBase = "c:\git\chocolatey-packages"
 $chocoPackages =  "$chocoBase\auto-packages"
 $chocoCustomFolder =  "$chocoBase\custom-packages"
 
@@ -222,12 +224,18 @@ function replacePackageFiles($package){
 function customScript($package, $pathToScript){ 
 ### Custom Script - When you need to do some funky ### $$$$
     
+    $custom_path = customPath($package)
+
+    write-warning $custom_path 
     if (Test-Path $pathToScript)
     {
         $package.StatusMessage =   . $pathToScript($package)
     }
     elseif (Test-Path $Global:customPath\$pathToScript) {
-        $package.StatusMessage =   . $Global:customPath\$pathToScript
+        $package.StatusMessage =   . $Global:customPath\$pathToScript($package)
+    }
+    elseif (Test-Path $custom_path\$pathToScript) {
+        $package.StatusMessage =   . $custom_path\$pathToScript($package)
     }
     else {
         $package.StatusMessage = "FAILED: Could not find script at $pathToScript"
@@ -287,7 +295,7 @@ function mergePackageFiles($package, $flags){
 
 
 function recompilePackage($package){
-    choco pack "$chocoCustomFolder\download\$($package.id)\$($package.id).nuspec" --out $chocoPackages |out-null
+    choco pack "$chocoCustomFolder\download\$($package.id)\$($package.id).nuspec" --out $chocoPackages | Out-Null
     if ($LASTEXITCODE -ne 0)
     {
         Write-Warning "$($package.id) re-compile failed"
@@ -325,7 +333,7 @@ function defaultScript{
     checkNetworkPath -package $repoPackage  $config.NetworkSource.NetworkPath $config.NetworkSource.FilePattern
     }
     elseif ($config.WebsiteSource.Enabled) {
-        checkAutoUpdate $repoPackage
+        customScript $repoPackage $config.WebsiteSource.ScriptPath
     }
 
     ## If newer package was found (updated) - run changes if needed, recompile
