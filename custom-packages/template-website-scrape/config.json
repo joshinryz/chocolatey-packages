@@ -12,11 +12,11 @@
                           "NetworkPath":  "\\\\network\\share",
                           "FilePattern":  "binary*.exe"
                       },
-    "ReplaceFiles":  {
+    "CopyFiles":  {
                          "Enabled":  false,
                          "CustomPath":  null
                      },
-    "MergeFiles":    {
+    "CopyFiles":    {
                          "Enabled":  false,
                          "CustomPath":  null
                      },

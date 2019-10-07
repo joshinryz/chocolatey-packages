@@ -197,26 +197,26 @@ function checkNetworkPath {
 }
 
 
-function replacePackageFiles($package){
+function copyPackageFiles($package){
     #Replaces files by looking in replacements folder in path. This should be an exact structure of the download repo folder. 
     $custom_path = customPath($package)
-    $folder = Test-Path $custom_path\replacements
+    $folder = Test-Path $custom_path\copyfiles
     
 
     if ($folder)
     { 
         try {
-            Copy-Item -Force -Recurse $custom_path\replacements\* $chocoCustomFolder\download\$($package.id)\ 
+            Copy-Item -Force -Recurse $custom_path\copyfiles\* $chocoCustomFolder\download\$($package.id)\ 
             $package.StatusMessage = "Files successfully replaced. Awaiting re-compile"
             $package.Updated = $true
         }
         catch {
-            $package.StatusMessage = "FAILED: Could not copy files from $custom_path\replacements to download\$(package.id)\"
+            $package.StatusMessage = "FAILED: Could not copy files from $custom_path\copyfiles to download\$(package.id)\"
             $package.Updated = $false
         }
     }
     else {
-        $package.StatusMessage = "FAILED: $custom_path\replacements folder does not exist in current directory. Failing."
+        $package.StatusMessage = "FAILED: $custom_path\copyfiles folder does not exist in current directory. Failing."
         $package.Updated = $false
     }
 }
@@ -283,12 +283,12 @@ function mergePackageFiles($package, $flags){
             $package.Updated = $true
         }
         catch {
-            $package.StatusMessage = "FAILED: Could not copy files from $custom_path\replacements to download\$(package.id)\"
+            $package.StatusMessage = "FAILED: Could not copy files from $custom_path\copyfiles to download\$(package.id)\"
             $package.Updated = $false
         }
     }
     else {
-        $package.StatusMessage = "FAILED: $custom_path\replacements folder does not exist in current directory. Failing."
+        $package.StatusMessage = "FAILED: $custom_path\copyfiles folder does not exist in current directory. Failing."
         $package.Updated = $false
     }
 }
@@ -340,8 +340,8 @@ function defaultScript{
         
     if($repoPackage.Updated) {
         # Replace files and re-compile (should be by default)  
-        if ($config.ReplaceFiles.Enabled) {  replacePackageFiles $repoPackage }
-        if ($config.MergeFiles.Enabled) {  mergePackageFiles $repoPackage }
+        if ($config.CopyFiles.Enabled) {  copyPackageFiles $repoPackage }
+        if ($config.CopyFiles.Enabled) {  mergePackageFiles $repoPackage }
         if ($config.CustomScript.Enabled) {customScript $repoPackage $config.CustomScript.ScriptPath} 
         if ($config.RecompileNupkg.Enabled) {recompilePackage $repoPackage }
     }
